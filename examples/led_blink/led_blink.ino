@@ -1,90 +1,134 @@
-/***************************************************
- *                    Preprocessor
- ***************************************************/
-/*  using uCOS-II to manage tasks */
-#include <ucos_ii.h>
+#include <os.h>
+#include <lib_mem.h>
 
-#define   LED_OUT     12      
-#define   task1_prio  (INT8U)11
-#define   task2_prio  (INT8U)34
+#define ASSERT(result,expected_value) \
+  do { \
+    if ((result) != (expected_value)) { \
+      Serial.print("Error: ");\
+      Serial.println(result,HEX);\
+      while(1);\
+    } \
+  } while (0)
 
-/***************************************************
- *                    Globals
- ***************************************************/
+  
+#define STARTUP_TASK_STK_SIZE 256
+#define TASK_PRIO 5
+static  CPU_STK  StartupTaskStk[STARTUP_TASK_STK_SIZE];
+static  OS_TCB  StartupTaskTCB;
+static  CPU_STK  AppTaskStck[STARTUP_TASK_STK_SIZE];
+static  OS_TCB  AppTaskTCB;
 
-OS_STK    TASK1_STK[64];
-OS_STK    TASK2_STK[64];
+static  void  AppTask        (void *p_arg)
+{
+  OS_ERR      err;
 
-OS_EVENT  *sema;                                                       /* Semaphore Event Kernel Object */
-int       max_blink  = 524700;
-int       blink      = 0;
+  while (1)
+  {
+    digitalWrite(4, 1);
+    OSTimeDlyHMSM((CPU_INT16U) 0,
+                  (CPU_INT16U) 0,
+                  (CPU_INT16U) 0,
+                  (CPU_INT32U)100,
+                  (OS_OPT )OS_OPT_TIME_HMSM_STRICT,
+                  (OS_ERR *)&err);
 
-/***************************************************
- *                    Prototypes
- ***************************************************/
+    digitalWrite(4, 0);
+    OSTimeDlyHMSM((CPU_INT16U) 0,
+                  (CPU_INT16U) 0,
+                  (CPU_INT16U) 0,
+                  (CPU_INT32U)100,
+                  (OS_OPT )OS_OPT_TIME_HMSM_STRICT,
+                  (OS_ERR *)&err);
 
-void      LED_ON(void);                                                /* TASK, Led Off */
-void      LED_OFF(void);                                               /* TASK, Led On  */
+    // OSTaskResume(&StartupTaskTCB, &err);
+    //OSTaskSuspend(&AppTaskTCB, &err);
+    //OSTimeDly(1, OS_OPT_TIME_DLY, &err);
+  }
+}
+void startApp()
+{
+  OS_ERR      err;
 
-/***************************************************
- *                    Main
- ***************************************************/
+  OSTaskCreate((OS_TCB     *)&AppTaskTCB,
+               (CPU_CHAR   *)"App Task",
+               (OS_TASK_PTR )AppTask,
+               (void       *)0,
+               (OS_PRIO     )TASK_PRIO + 1,
+               (CPU_STK    *)&AppTaskStck[0],
+               (CPU_STK_SIZE)STARTUP_TASK_STK_SIZE / 2,
+               (CPU_STK_SIZE)STARTUP_TASK_STK_SIZE,
+               (OS_MSG_QTY  )5,
+               (OS_TICK     )10,
+               (void       *)0,
+               (OS_OPT      )(OS_OPT_TASK_NONE),
+               (OS_ERR     *)&err);
+}
+
+static  void  StartupTask        (void *p_arg)
+{
+
+  (void)p_arg;
+  OS_ERR      err;
+
+  CPU_Init();                                                 /* Initialize uC/CPU services.                          */
+
+  //OS_CPU_SysTickInitFreq(84000000);                                   /* Init uC/OS periodic time src (SysTick).              */
+  //TODO: not recognizeed by arduino ide
+  //Mem_Init();                                                 /* Initialize Memory Management Module                  */
+  CPU_IntEn();
+  /*
+
+  */
+  // ASSERT(err, OS_ERR_NONE);
+  startApp();
+
+  while (1)
+  {
+    Serial.println("hello");
+    OSTimeDlyHMSM((CPU_INT16U) 0,
+                  (CPU_INT16U) 0,
+                  (CPU_INT16U) 0,
+                  (CPU_INT32U)300,
+                  (OS_OPT )OS_OPT_TIME_HMSM_STRICT,
+                  (OS_ERR *)&err);
+
+   
+
+  }
+}
+
+
+
 
 void setup() {
-    Serial.begin(9600);                                                /* Use serial port for control (board rate : 9600) */
-    pinMode(LED_OUT, OUTPUT);                                          /* set Digital Pin to output */
-    Serial.println("[DBG] : Initiailize uCOS");
-    OSInit();                                                          /* initialize uCOS */
-    Serial.println("[DBG] : Create two tasks");
-    OSTaskCreate(LED_ON, NULL,TASK1_STK,task1_prio);                   /* create led_on task */
-    OSTaskCreate(LED_OFF,NULL,TASK2_STK,task2_prio);                   /* create led_off task */
-    Serial.println("[DBG] : Done. OS starts now.");
-    OSStart();                                                         /* start uCOS */
-    Serial.println("[DBG] : Shutdown");
+  OS_ERR  err;
+  Serial.begin(115200);
+  pinMode(4, OUTPUT);
+  digitalWrite(4, 0);
+  delay(100);
+  CPU_IntDis();                                               /* Disable all interrupts.                              */
+  OSInit(&err);                                               /* Init uC/OS-III.        */
+  ASSERT(err, OS_ERR_NONE);
+  OSTaskCreate((OS_TCB     *)&StartupTaskTCB,                 /* Create the startup task                              */
+               (CPU_CHAR   *)"Startup Task",
+               (OS_TASK_PTR )StartupTask,
+               (void       *)0,
+               (OS_PRIO     )TASK_PRIO,
+               (CPU_STK    *)&StartupTaskStk[0],
+               (CPU_STK_SIZE)STARTUP_TASK_STK_SIZE / 2,
+               (CPU_STK_SIZE)STARTUP_TASK_STK_SIZE,
+               (OS_MSG_QTY  )5,
+               (OS_TICK     )10,
+               (void       *)0,
+               (OS_OPT      )(OS_OPT_TASK_NONE),
+               (OS_ERR     *)&err);
+  ASSERT(err, OS_ERR_NONE);
+
+  OSStart(&err);                                              /* Start multitasking (i.e. give control to uC/OS-III). */
+  ASSERT(err, OS_ERR_NONE);
+  while (1U) ;
 }
 
-/***************************************************
- *                    Functions
- ***************************************************/
-
-void LED_ON(void *arg){
-    INT8U err = 0;
-    sema = OSSemCreate(1);                                            /* create Semaphore (in high priority task) */
-    while(1){
-        OSSemPend(sema,5000,&err);                                    /* wait until semaphore gets */
-        Serial.println("[DBG] : get semaphore at led_on");
-        digitalWrite(LED_OUT, HIGH);
-        OSSemPost(sema);                                              /* return semaphore to OS */
-        OSTimeDlyHMSM(0,0,5,0);
-        if (OSTaskDelReq(OS_PRIO_SELF) == OS_ERR_TASK_DEL_REQ) {      /* check whether the task is requested shutdown */
-            Serial.println("[DBG] : task1 shutdown");
-            OSTaskDelReq(task2_prio);                                 /* 더이상 OFF 시킬 필요 없으므로 led_off task 종료 */
-            OSTaskDel(OS_PRIO_SELF);}
-   }
+void loop() {
+  /* do nothing */
 }
-
-void LED_OFF(void *arg){
-    INT8U err = 0;
-    while(1){
-        OSSemPend(sema,5000,&err);                                     /* wait until semaphore gets */
-        Serial.print("[DBG] : get semaphore at led_off >> Rest count :");
-        Serial.println(max_blink-blink);                               /* available counts */
-        digitalWrite(LED_OUT, LOW);
-        blink++;
-        if(blink >= max_blink){                                        /* if no-available count, */
-          OSTaskDelReq(task1_prio);                                    /* request shutdown to LED ON TASK */
-          if (OSTaskDelReq(OS_PRIO_SELF) == OS_ERR_TASK_DEL_REQ) {
-              Serial.println("[DBG] : task2 shutdown");                /* state : LED OFF       */
-              OSSemPost(sema);                                         /* return semaphore before shutdown    */
-              OSTaskDel(OS_PRIO_SELF);}                                /* Here, shutdown LED_OFF Task   */
-          Serial.println("[DBG] : send a request to led_on task");
-        }
-        OSSemPost(sema);                                               /* return semaphore to OS */
-        OSTimeDlyHMSM(0,0,5,0);
-   }
-}
-
-/***************************************************
- *                    Fin
-***************************************************/
-void loop() {/* do nothing */}

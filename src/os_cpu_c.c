@@ -579,7 +579,16 @@ void  OSTimeTickHook (void)
 * Note(s)    : 1) This function MUST be placed on entry 15 of the Cortex-M vector table.
 *********************************************************************************************************
 */
+void pendSVHook(void){
+    OS_CPU_PendSVHandler();	
 
+}
+void sysTickHook(void)
+{
+  
+    OS_CPU_SysTickHandler();
+
+}
 void  OS_CPU_SysTickHandler  (void)
 {
     CPU_SR_ALLOC();
