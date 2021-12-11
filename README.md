@@ -2,13 +2,16 @@
 
 This is a an adaption of the uc-OS3 RTOS to make it compatible with the Arduino IDE and its SDK. The current version of the source files are
 
-- uc-OS3: V3.08.01
-- uc-LIB: v1.39.01
-- uc-CPU: V1.32.01
+- uc-OS3: [V3.08.01](https://github.com/weston-embedded/uC-OS3/tree/7af6c6e8aff1c75caf008fcc266b759528199eb2)
+- uc-LIB: [v1.39.01](https://github.com/weston-embedded/uC-LIB/tree/71b5f65da27859028a89c4ceac1df53c880916dc)
+- uc-CPU: [V1.32.01](https://github.com/weston-embedded/uC-CPU/tree/ae5796e2049b043f69ef4f29fc330f29217b6344)
+
+The specific Port files used for the library are Cortex-M3 (ARMv7-M)
 
 ## What has been modified?
 
-Some include directories have been made relative since the Arduino platform doesnt have an option to include directories easily without hacking the boards.txt and platforms.txt. In addition `pendSVHook` and `sysTickHook` have been implemented in `/src/uc-os3-Arduino.c`. These two functions are called in the cortex handlers in thee Arduino Due SDK `/core/arduino/cortex_handlers.c`.
+Some include directories have been made relative since the Arduino platform doesn't have an option to include directories via compiler flags easily without hacking the boards.txt and platforms.txt. In addition `pendSVHook` and `sysTickHook` have been implemented in `/src/uc-os3-Arduino.c`. These two functions are called in the cortex handlers in the Arduino Due SDK `/core/arduino/cortex_handlers.c`.
+
 
 ## Installation
 
