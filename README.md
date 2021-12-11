@@ -14,7 +14,7 @@ The specific Port files used for the library are Cortex-M3 (ARMv7-M)
 Some include directories have been made relative since the Arduino platform doesn't have an option to include directories via compiler flags easily without hacking the boards.txt and platforms.txt. In addition `pendSVHook` and `sysTickHook` have been implemented in `/src/uc-os3-Arduino.c`. These two functions are called in the cortex handlers in the Arduino Due SDK `/core/arduino/cortex_handlers.c`.
 
 ### Assembly extension
-Arduino IDE does not detect compile natively assembly files (.s) and only detects (.S). Extension has been modified to uppercase (.S) to detect the sources.
+Arduino IDE does not compile natively assembly files (.s) and only detects (.S). Extension has been modified to uppercase (.S) to detect the sources.
 
 ### uc-LIB configuration
 
