@@ -1,7 +1,7 @@
 #ifndef STARTUP_TASK_H
 #define STARTUP_TASK_H
 
-#include <uc-os3-arduino.h>
+#include <uCOS-III_Due.h>
 #include <cstddef>
 #define STARTUP_TASK_STK_SIZE 256
 #define STARTUP_TASK_PRIO 2

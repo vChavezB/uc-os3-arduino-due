@@ -1,4 +1,4 @@
-#include <uc-os3-arduino.h>
+#include <uCOS-III_Due.h>
 
 #define SIMPLETASK_STACK_SIZE 256
 
