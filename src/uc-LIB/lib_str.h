@@ -142,12 +142,12 @@
 *********************************************************************************************************
 */
 
-#include  <cpu.h>
+#include  "../uc-CPU/cpu.h"      /* Relative path for Arduino  */
 
-#include  <lib_def.h>
-#include  <lib_ascii.h>
+#include  "lib_def.h"           /* Relative path for Arduino  */
+#include  "lib_ascii.h"         /* Relative path for Arduino  */
 
-#include  <lib_cfg.h>
+#include  "lib_cfg.h"           /* Relative path for Arduino  */
 
 #if 0                                                           /* See Note #4.                                         */
 #include  <stdio.h>

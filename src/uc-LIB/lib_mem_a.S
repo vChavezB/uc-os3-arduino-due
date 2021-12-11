@@ -17,7 +17,7 @@
 @
 @                                     STANDARD MEMORY OPERATIONS
 @
-@                                           ARM-Cortex-M4
+@                                           ARM-Cortex-M3
 @                                           GNU Compiler
 @
 @ Filename : lib_mem_a.s

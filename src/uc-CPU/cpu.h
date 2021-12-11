@@ -76,8 +76,8 @@
 *********************************************************************************************************
 */
 
-#include  <cpu_def.h>
-#include  <cpu_cfg.h>                                           /* See Note #3.                                         */
+#include  "cpu_def.h"       /* Relative path for Arduino  */
+#include  "cpu_cfg.h"                                           /* See Note #3.                                         */
 
 #ifdef __cplusplus
 extern  "C" {

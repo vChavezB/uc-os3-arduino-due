@@ -118,8 +118,8 @@
 *********************************************************************************************************
 */
 
-#include  <cpu_def.h>
-#include  <cpu.h>
+#include  "../uc-CPU/cpu_def.h"     /* Relative path for Arduino  */
+#include  "../uc-CPU/cpu.h"         /* Relative path for Arduino  */
 
 
 /*

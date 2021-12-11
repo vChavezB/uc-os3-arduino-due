@@ -95,10 +95,10 @@
 *********************************************************************************************************
 */
 
-#include  <cpu.h>
-#include  <cpu_core.h>
+#include  "../uc-CPU/cpu.h"         /* Relative path for Arduino  */
+#include  "../uc-CPU/cpu_core.h"    /* Relative path for Arduino  */
 
-#include  <lib_def.h>
+#include  "lib_def.h"               /* Relative path for Arduino  */
 
 
 /*

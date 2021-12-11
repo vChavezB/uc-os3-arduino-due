@@ -25,10 +25,7 @@
 */
 
 #define   MICRIUM_SOURCE
-#include  <os.h>
-#include  "os_app_hooks.h"
-
-
+#include "os_app_hooks.h"
 /*
 ************************************************************************************************************************
 *                                              SET ALL APPLICATION HOOKS

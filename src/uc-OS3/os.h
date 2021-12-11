@@ -45,9 +45,9 @@
 
 #include <os_cfg.h>
 #include <os_cfg_app.h>
-#include <cpu_core.h>
+#include "uc-CPU/cpu_core.h" /* Relative path for Arduino  */
 #include "os_type.h"
-#include <os_cpu.h>
+#include "os_cpu.h" /* Relative path for Arduino  */
 #include "os_trace.h"
 
 

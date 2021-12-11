@@ -36,10 +36,10 @@
 */
 
 #define    MICRIUM_SOURCE
-#include  <cpu.h>
-#include  <cpu_core.h>
+#include  "cpu.h"               /* Relative path for Arduino  */
+#include  "cpu_core.h"          /* Relative path for Arduino  */
 
-#include  <lib_def.h>
+#include  "../uc-LIB/lib_def.h" /* Relative path for Arduino  */
 
 #ifdef __cplusplus
 extern  "C" {

@@ -93,13 +93,13 @@
 *********************************************************************************************************
 */
 
-#include  <cpu.h>
-#include  <lib_def.h>
-#include  <cpu_cfg.h>
+#include  "cpu.h"                /* Relative path for Arduino  */
+#include  "../uc-LIB/lib_def.h"  /* Relative path for Arduino  */
+#include  "cpu_cfg.h"            /* Relative path for Arduino  */
 
 #if (CPU_CFG_NAME_EN == DEF_ENABLED)
-#include  <lib_mem.h>
-#include  <lib_str.h>
+#include  "../uc-LIB/lib_mem.h" /* Relative path for Arduino  */
+#include  "../uc-LIB/lib_str.h" /* Relative path for Arduino  */
 #endif
 
 

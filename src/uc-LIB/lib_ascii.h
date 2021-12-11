@@ -108,8 +108,8 @@
 *********************************************************************************************************
 */
 
-#include  <cpu.h>
-#include  <lib_def.h>
+#include  "../uc-CPU/cpu.h"     /* Relative path for Arduino  */
+#include  "lib_def.h"
 
 
 /*
