@@ -778,39 +778,39 @@
 *********************************************************************************************************
 */
 
-CPU_BOOLEAN  ASCII_IsAlpha   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsAlpha   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsAlphaNum(CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsAlphaNum(CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsLower   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsLower   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsUpper   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsUpper   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsDig     (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsDig     (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsDigOct  (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsDigOct  (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsDigHex  (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsDigHex  (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsBlank   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsBlank   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsSpace   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsSpace   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsPrint   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsPrint   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsGraph   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsGraph   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsPunct   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsPunct   (CPU_CHAR  c);
 
-CPU_BOOLEAN  ASCII_IsCtrl    (CPU_CHAR  c);
-
-
-CPU_CHAR     ASCII_ToLower   (CPU_CHAR  c);
-
-CPU_CHAR     ASCII_ToUpper   (CPU_CHAR  c);
+extern CPU_BOOLEAN  ASCII_IsCtrl    (CPU_CHAR  c);
 
 
-CPU_BOOLEAN  ASCII_Cmp       (CPU_CHAR  c1,
+extern CPU_CHAR     ASCII_ToLower   (CPU_CHAR  c);
+
+extern CPU_CHAR     ASCII_ToUpper   (CPU_CHAR  c);
+
+
+extern CPU_BOOLEAN  ASCII_Cmp       (CPU_CHAR  c1,
                               CPU_CHAR  c2);
 
 

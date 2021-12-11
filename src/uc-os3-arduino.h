@@ -1,8 +1,9 @@
 #ifndef UC_OS3_ARDUINO_H
 #define UC_OS3_ARDUINO_H
 
-#include "uc-OS3/os.h"
 #include "uc-LIB/lib_mem.h"
+#include "uc-OS3/os.h"
+
 
 #define OS_ASSERT(result,expected_value) \
   do { \
