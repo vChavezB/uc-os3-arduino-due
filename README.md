@@ -10,9 +10,15 @@ The specific Port files used for the library are Cortex-M3 (ARMv7-M)
 
 ## What has been modified?
 
+### Includes
 Some include directories have been made relative since the Arduino platform doesn't have an option to include directories via compiler flags easily without hacking the boards.txt and platforms.txt. In addition `pendSVHook` and `sysTickHook` have been implemented in `/src/uc-os3-Arduino.c`. These two functions are called in the cortex handlers in the Arduino Due SDK `/core/arduino/cortex_handlers.c`.
 
-Asseembly files with lower case s (.s) have been set to uppercase (.S) to make the Arduino IDE include them in thee compilation.
+### Assembly extension
+Asseembly files with lower case s (.s) have been set to uppercase (.S) to make the Arduino IDE include them in for compilation.
+
+### uc-LIB configuration
+
+`#define  LIB_MEM_CFG_OPTIMIZE_ASM_EN    DEF_ENABLED`
 
 ## Installation
 
