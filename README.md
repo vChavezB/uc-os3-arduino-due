@@ -8,6 +8,11 @@ This is a an adaption of the uc-OS3 RTOS to make it compatible with the Arduino 
 
 The specific Port files used for the library are Cortex-M3 (ARMv7-M)
 
+# License
+
+uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or for peaceful research. If you plan or intend to use uC/OS-III in a commercial application/product then, you need to contact Micrium to properly license uC/OS-III for its use in your application/product. 
+
+
 ## What has been modified?
 
 ### Includes
